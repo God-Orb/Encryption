@@ -1,0 +1,33 @@
+import random
+
+def encrypt_message(message, seed):
+    ascii_codes = [ord(char) for char in message]
+    rng = random.Random(seed)
+    key = [rng.randint(0, 255) for _ in range(len(ascii_codes))]
+    encrypted_codes = [ascii ^ key for ascii, key in zip(ascii_codes, key)]
+    encrypted_message = ''.join([chr(code) for code in encrypted_codes])
+
+    return encrypted_message
+
+def decrypt_message(encrypted_message, seed):
+    encrypted_codes = [ord(char) for char in encrypted_message]
+    rng = random.Random(seed)
+    key = [rng.randint(0, 255) for _ in range(len(encrypted_codes))]
+    decrypted_codes = [encrypted ^ key for encrypted, key in zip(encrypted_codes, key)]
+    decrypted_message = ''.join([chr(code) for code in decrypted_codes])
+
+    return decrypted_message
+
+while True:
+    choice = input("[Cal's Code]\n1. Encrypt\n2. Decrypt\n3. Generate New Seed\n\n> ")
+    if choice == '1':
+        seed = input('Seed: ')
+        msg = input('Message: ')
+        input(encrypt_message(msg,seed))
+    elif choice == '2':
+        seed = input('Seed: ')
+        msg = input('Message: ')
+        input(decrypt_message(msg,seed))
+    elif choice == '3':
+        input(random.randint(0,255))
+    print('\n')
